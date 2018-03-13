@@ -1,0 +1,1 @@
+Pregunta "\191es pelirrojo?" (fromList [("No",Pregunta "\191es mujer?" (fromList [("no",Prediccion "Harry Potter"),("si",Prediccion "Hermione")])),("Si",Pregunta "\191es mujer?" (fromList [("no",Prediccion "Ron"),("si",Prediccion "Ginny")]))])

@@ -1,0 +1,76 @@
+Universidad Simón Bolívar
+Laboratorio de Lenguajes de Programación I
+Proyecto 1 - Haskinator
+Autor: Adolfo Jeritson. 12-10523
+
+Detalles de Implementación:
+
++ Para manejar las instancias de Show y Read se deja que el tipo
+de dato Oráculo derive de los tipos correspondientes, y que sea 
+Haskell el encargado de presentarlo en forma legible tanto para 
+personas como para el programa.
+
++ Del Modulo Oráculo se exportan los tipos de datos definidos y 
+las funciones que se piden en el enunciado. Del Modulo Haskinator solo
+se importa la función main.
+
++ En todas las funciones del modulo Oráculo se usa pattern matching 
+para saber cuando devolver el valor que se pide o el error correspondiente.
+
++ La función main imprime un mensaje de bienvenida y luego ejecuta
+una función auxiliar que despliega el menú de opciones. Este menu recibe
+el oráculo inicial, que es una predicción vacía. Esta predicción vacía
+es reemplazada después según la acción que tome el usuario.
+
++ La función predecir recibe el Oráculo 
+actual y se apoya en diferentes funciones auxiliares para el proceso de
+la predicción. Primero revisa que el Oráculo actual no sea el Oráculo vacío, 
+ya que no tiene sentido hacer alguna actividad sobre este.
+
+    Cuando el Oráculo no sea el vacío, la ejecución se manda a una de dos
+    funciones auxiliares dependiendo del tipo del Oráculo. Esto es así para
+    facilitar el manejo del Oráculo dentro de las mismas funciones y poder
+    usar facilmente las funciones del modulo Oraculo, pues de antemano sabemos
+    que no darán error por ser de otro tipo.
+
+    Para reconocer la respuesta, se debe escribir tal cual como aparece impresa
+    cuando se dan las opciones en pantalla. Igualmente en el caso de 'ninguna' o de
+    'si' y 'no'. En caso de no reconocer la respuesta el Oráculo siemplemente vuelve
+    a repetir la pregunta.
+
+    Durante el proceso de predicción se pueden: añadir nuevas opciones, añadir nuevas
+    predicciones, o seguir recorriendo el arbol del Oráculo hasta alcanzar la predicción
+    correcta.
+
++ Persistir guarda el contenido del Oráculo en el archivo, cuando se pide el nombre
+también se debe dar la extensión que uno quiera para el archivo
+
++ Cargar pide el nombre del archivo con su extensión, y primero revisa si el archivo
+existe, en cuyo caso lo carga a un Oráculo. Si no existe, se da un mensaje de error
+y se vuelve a pedir otr nombre.
+
++ hallarLCA se encarga en encontrar la pregunta crucial, o el ancestro común más bajo (LCA)
+esto se hace revisando desde el 'nodo raíz' (el Oráculo actual):
+    
+    Se chequea si ambas predicciones están en el subarbol del nodo raiz. En el primer caso esto 
+    siempre es cierto si las predicciones existen, por lo que se procede a revisar los hijos del nodo
+    (opciones de la pregunta): Si ambas predicciones están en el subarbol de una de las opciones, 
+    sabemos que es un ancestro común, y si suponemos que no hay predicciones repetidas, solamente 
+    hay a lo sumo una opción que es ancestro de ambas predicciones. 
+    
+    Cuando una opción no es ancestro común, entonces se devuelve el último acentro común que se encontró 
+    (el acumulador del fold). El fold usa como valor inicial el nodo padre ya que este fue el último 
+    ancestro común encontrado.
+    
+    Recursivamente buscamos en los hijos del nuevo ancestro comun que encontramos en el paso anterior
+    hasta que no podamos encontrar un nuevo ancestro común. En este momento ya sabemos que el último 
+    ancestro encontrado es el LCA.
+
+    Una vez que se obtiene la pregunta crucial (LCA) búscamos qué opciones llevan a cada predicción.
+    Como nos encontramos en el LCA, sabemos que en el conjunto de opciones, solamente una retorna True
+    cuando ejecutamos la función existePred para cada predicción, ya que siendo el ancestro minimo común 
+    los subarboles de cada opción solo pueden contener a una de la predicciones, no ambas. 
+    Esta es la opción que nos lleva a esa predicción.
+
+
+    

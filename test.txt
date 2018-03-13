@@ -1,0 +1,1 @@
+Pregunta "\191a que familia pertenece?" (fromList [("Lannister",Prediccion "Tyrion"),("Stark",Pregunta "\191hombre o mujer?" (fromList [("hombre",Prediccion "Jon Snow"),("mujer",Prediccion "Arya")])),("Tyrell",Prediccion "Loras")])
